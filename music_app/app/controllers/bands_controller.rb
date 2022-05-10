@@ -9,7 +9,7 @@ class BandsController < ApplicationController
     render :new
   end
 
-  def def create
+  def create
     @band = Band.new(band_params)
     if @band.save
       flash[:success] = "Object successfully created"

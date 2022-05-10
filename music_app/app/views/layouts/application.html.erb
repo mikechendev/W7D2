@@ -10,9 +10,9 @@
   </head>
   <header>
     <% if logged_in? %>
-      <p><%= @user.email %></p>
+      <p><%= current_user.email %></p>
       <form action="<%= session_url %>" method='post'>
-      <input type="hidden" value='_method' method='delete'>
+      <input type="hidden" name='_method' value='delete'>
       <%= auth_token %>
       <input type="submit" value='Log out'>
       </form>
