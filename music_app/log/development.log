@@ -1940,3 +1940,15 @@ Processing by UsersController#show as HTML
 Completed 200 OK in 233ms (Views: 228.5ms | ActiveRecord: 1.5ms)
 
 
+Started GET "/users/1" for ::1 at 2022-05-10 14:44:26 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (4.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:22
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/show.html.erb within layouts/application (0.3ms)
+  [1m[36mUser Load (70.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "_jhdp_rTlzPwSBGAtcJZ7A"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+Completed 200 OK in 132ms (Views: 56.7ms | ActiveRecord: 74.1ms)
+
+
