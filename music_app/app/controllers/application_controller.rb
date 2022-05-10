@@ -1,33 +1,16 @@
 class ApplicationController < ActionController::Base
 
-    attr_reader :password
-    before_validation :ensure_session_token
+    helper_method :current_user, :logged_in?, :login
 
-    def self.find_by_credentials(email, password)
-        user = User.find_by(email: email)
-        if user && user.is_password?(password)
-            user
-        else
-            nil
-        end
+    def current_user
+        @current_user ||= User.find_by(session_token: session[:session_token]) 
     end
 
-    def password=(password)
-        self.password_digest = BCrypt::Password.create(password)
-        @password = password
+    def logged_in?
+        !!current_user
     end
 
-    def is_password?(password)
-        BCrypt::Password.new(self.password_digest).is_password?(password)
-    end
-
-    def reset_session_token!
-        self.session_token = SecureRandom::urlsafe_base64
-        self.save!
-        self.session_token
-    end
-
-    def ensure_session_token
-        self.session_token ||= SecureRandom::urlsafe_base64
+    def login(user)
+        session[:session_token] = user.reset_session_token!
     end
 end
