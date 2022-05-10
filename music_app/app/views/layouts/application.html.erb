@@ -8,7 +8,21 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
+  <header>
+    <% if logged_in? %>
+      <p><%= @user.email %></p>
+      <br>
+      <form action="<%= sessions_url %>" method='post'>
+      <input type="hidden" value='_method' method='delete'>
+      <%= auth_token %>
+      <input type="submit" value='Log out'>
+      </form>
+    <% else %>
+      <%= link_to 'Log in', new_sessions_url %>
+      <br>
+      <%= link_to 'Sign up', new_user_url %>
+    <% end %>
+  </header>
   <body>
     <%= yield %>
   </body>
