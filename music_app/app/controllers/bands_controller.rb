@@ -26,6 +26,16 @@ class BandsController < ApplicationController
     render :edit
   end
 
+  def update
+    @band = Band.find(params[:id])
+    if @band.update
+      redirect_to band_url(@band)
+    else
+      render :edit
+    end
+  end
+
+
   def show
     @band = Band.find(params[:id])
     render :show
